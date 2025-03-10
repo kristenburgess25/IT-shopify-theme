@@ -1,0 +1,218 @@
+/**************************
+  Basic Modal Styles
+**************************/
+
+.micro-modal {
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    // height: 100vh;
+  }
+
+  &__container {
+    background-color: #fff;
+    padding: 30px;
+    max-width: 740px;
+    height: 100%;
+    width: 80%;
+    border-radius: 6px;
+    overflow-y: auto;
+    box-sizing: border-box;
+
+    @include media-query($medium-up) {
+      width: 50%;
+    }
+  }
+
+  &__header {
+    // position: relative;
+    display: block;
+    // height: 30px;
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    // position: absolute;
+    // top: 20px;
+    // left: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 1.5em;
+    line-height: 1.25;
+    box-sizing: border-box;
+  }
+
+  &__footer {
+    text-align: right;
+  }
+
+  &__grid {
+    margin: 20px 0;
+
+    > div {
+      padding: 20px;
+    }
+  }
+
+  &__icon object {
+    height: 70px;
+  }
+
+  &__close {
+    position: absolute;
+    top: -12px;
+    right: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    margin: 0px;
+    padding: 0px;
+    color: $color-brand;
+    font-size: 1.5em;
+  }
+}
+
+@supports (display: flex) {
+  .micro-modal__container {
+    height: initial;
+    max-height: 80vh;
+  }
+
+  .micro-modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: initial;
+    margin-bottom: 0px;
+    position: relative;
+  }
+
+  // .micro-modal__title {
+  //   position: static;
+  // }
+
+  // .micro-modal__close {
+  //   position: static;
+  // }
+}
+
+.micro-modal__header .micro-modal__close:before {
+  content: "\2715";
+}
+
+.micro-modal__content {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: rgba(0, 0, 0, 0.8);
+  table {
+    margin: 0 -14px;
+    td,
+    th {
+      border-color: transparent;
+    }
+  }
+  ul {
+    li {
+      list-style-type: disc;
+      list-style-position: inside;
+    }
+  }
+}
+
+@supports (display: flex) {
+  .micro-modal__content {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+}
+
+@include media-query($medium-down) {
+  .micro-modal .button {
+    white-space: normal;
+  }
+}
+
+/**************************
+  Demo Animation Style
+**************************/
+
+@keyframes mmfadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mmfadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes mmslideIn {
+  from {
+    transform: translateY(15%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes mmslideOut {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10%);
+  }
+}
+
+.micromodal-slide {
+  display: none;
+}
+
+.micromodal-slide.is-open {
+  display: block;
+  opacity: 1;
+  z-index: 9999;
+}
+
+.micromodal-slide[aria-hidden="false"] .micro-modal__overlay {
+  animation: mmfadeIn 0.3s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.micromodal-slide[aria-hidden="false"] .micro-modal__container {
+  animation: mmslideIn 0.3s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.micromodal-slide[aria-hidden="true"] .micro-modal__overlay {
+  animation: mmfadeOut 0.3s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.micromodal-slide[aria-hidden="true"] .micro-modal__container {
+  animation: mmslideOut 0.3s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.micromodal-slide .micro-modal__container,
+.micromodal-slide .micro-modal__overlay {
+  will-change: transform;
+}
+
+/**************************
+  Custom styles for individual modals
+**************************/

@@ -1,0 +1,324 @@
+
+<script type="application/javascript">
+  const CheckoutScripts = () => {
+    const selectors = {
+      emailSection: "section section--contact-information",
+      submitButton: "continue_button",
+      giftCardPopup: 'gift-popup',
+      modalOverlay: "modal-overlay",
+      okButton: "ok-button",
+      returnButton: "return-button",
+      sidebar: "sidebar",
+      body: 'body',
+      total: "total-line-table__footer",
+      stepSections: 'step__sections',
+      firstStep: '[data-customer-information-form="true"]'
+    }
+
+    const checkForConsentNeeded  = () => {
+      const stepSection = document.getElementsByClassName(selectors.stepSections);
+      const firstStep = document.getElementsByTagName('form')[0].dataset.customerInformationForm;
+      if (stepSection[0] && firstStep ) {
+        let checkbox = createCheckboxMarkup();
+        stepSection[0].appendChild(checkbox);
+        disableSubmitButton();
+      }
+    }
+
+    const disableSubmitButton = () => {
+      const button = document.getElementById(selectors.submitButton);
+      
+      if (button) {
+        button.setAttribute('disabled', true);
+        button.classList.add('disabled');
+      }
+    }
+
+    const enableSubmitButton = () => {
+      const button = document.getElementById(selectors.submitButton);
+      
+      if(button) {
+       button.removeAttribute('disabled');
+       button.classList.remove('disabled');     
+      }
+    }
+
+    const createCheckboxMarkup = () => {
+      const consentWrapper = document.createElement('div');
+      const consentCheckboxWrapper = document.createElement('div');
+      const consentHeadline = document.createElement('h3');
+      const checkboxDiv = document.createElement('div');
+      const checkbox = document.createElement('input');
+      const consentLabel = document.createElement('label');
+      const termsOfService = document.createElement('a');
+      const privacyPolicy = document.createElement('a');
+      const productConsent = document.createElement('a');
+      const termsText = document.createTextNode('{{ settings.consent-terms-link-text }}');
+      const privacyText = document.createTextNode('{{ settings.consent-privacy-link-text }}');
+      const productConsentText = document.createTextNode('{{ settings.consent-product-link-text }}');
+      const labelText = document.createTextNode(`{{ settings.consent-pre-link}}`);
+
+      termsOfService.href = '{{ settings.consent-terms-link }}';
+      termsOfService.appendChild(termsText);
+
+      privacyPolicy.href = '{{ settings.consent-privacy-link }}'
+      privacyPolicy.appendChild(privacyText)
+
+      productConsent.href = '{{ settings.consent-product-link }}'
+      productConsent.appendChild(productConsentText);
+
+      consentCheckboxWrapper.classList.add('checkbox-wrapper');
+      consentCheckboxWrapper.classList.add('consent');
+
+      checkbox.setAttribute('id', 'consent-checkbox');
+      checkbox.setAttribute('name', "consentRequired");
+      checkbox.setAttribute('type', "checkbox");
+      checkbox.setAttribute('value', "0");
+      checkbox.classList.add('input-checkbox');
+
+      consentLabel.htmlFor = 'consent-checkbox';
+      consentLabel.classList.add('checkbox_label');
+      consentLabel.appendChild(labelText);
+      consentLabel.appendChild(termsOfService);
+      consentLabel.appendChild(document.createTextNode(', '));
+      consentLabel.appendChild(privacyPolicy);
+      consentLabel.appendChild(document.createTextNode(', '));
+      consentLabel.appendChild(productConsent);
+      consentLabel.appendChild(document.createTextNode('.'));
+
+      checkboxDiv.appendChild(checkbox);
+      checkboxDiv.appendChild(consentLabel);
+
+      consentCheckboxWrapper.appendChild(checkboxDiv);
+
+      consentWrapper.classList.add('consent-wrapper')
+      consentWrapper.appendChild(consentHeadline);
+      consentWrapper.appendChild(consentCheckboxWrapper);
+
+      return consentWrapper;
+    }
+
+    const createFooterLinks = () => {
+
+      const termsOfServiceFooterItem = document.createElement('li');
+      const privacyPolicyFooterItem = document.createElement('li');
+      const dnaResearchFooterItem = document.createElement('li');
+      const productConsentFooterItem = document.createElement('li');
+
+      const termsOfServiceFooter = document.createElement('a');
+      const privacyPolicyFooter = document.createElement('a');
+      const dnaResearchFooter = document.createElement('a');
+      const productConsentFooter = document.createElement('a');
+
+      const termsTextFooter = document.createTextNode('{{ settings.footer-terms-link-text }}');
+      const privacyTextFooter = document.createTextNode('{{ settings.footer-privacy-link-text }}');
+      const dnaResearchTextFooter = document.createTextNode('{{ settings.footer-dna-research-link-text }}');
+      const productConsentTextFooter = document.createTextNode('{{ settings.footer-consent-product-link-text }}');
+
+      termsOfServiceFooter.href = '{{ settings.footer-terms-link }}';
+      termsOfServiceFooter.appendChild(termsTextFooter);
+      termsOfServiceFooterItem.appendChild(termsOfServiceFooter);
+      termsOfServiceFooterItem.classList.add("policy-list__item")
+
+      privacyPolicyFooter.href = '{{ settings.footer-privacy-link }}';
+      privacyPolicyFooter.appendChild(privacyTextFooter);
+      privacyPolicyFooterItem.appendChild(privacyPolicyFooter);
+      privacyPolicyFooterItem.classList.add("policy-list__item")
+
+      dnaResearchFooter.href = '{{ settings.footer-dna-research-link }}';
+      dnaResearchFooter.appendChild(dnaResearchTextFooter);
+      dnaResearchFooterItem.appendChild(dnaResearchFooter);
+      dnaResearchFooterItem.classList.add("policy-list__item");
+
+      productConsentFooter.href = '{{ settings.footer-consent-product-link }}';
+      productConsentFooter.appendChild(productConsentTextFooter);
+      productConsentFooterItem.appendChild(productConsentFooter);
+      productConsentFooterItem.classList.add("policy-list__item");
+
+      if("{{ settings.footer-terms-link-text }}" != "" && "{{ settings.footer-terms-link }}" != "" ){
+        document.querySelector(".main__footer ul.policy-list").appendChild(termsOfServiceFooterItem);
+      }
+      if("{{ settings.footer-privacy-link-text }}" != "" && "{{ settings.footer-privacy-link }}" != "" ){
+        document.querySelector(".main__footer ul.policy-list").appendChild(privacyPolicyFooterItem);
+      }
+      if("{{ settings.footer-dna-research-link-text }}" != "" && "{{ settings.footer-dna-research-link }}" != "" ){
+        document.querySelector(".main__footer ul.policy-list").appendChild(dnaResearchFooterItem);
+      }
+      if("{{ settings.footer-consent-product-link-text }}" != "" && "{{ settings.footer-consent-product-link }}" != "" ){
+        document.querySelector(".main__footer ul.policy-list").appendChild(productConsentFooterItem);
+      }
+
+    }
+
+    const onConsentChange = () => {
+      let checkbox = document.getElementById('consent-checkbox');
+      if (checkbox) {
+        checkbox.addEventListener('change', function(event) {
+          let isChecked = event.target.checked;
+          if (isChecked) {
+            enableSubmitButton();
+          } else if (isChecked === false) {
+            disableSubmitButton();
+          }
+        });
+      }
+    }
+
+    const buildOrderStatusPage = () => {
+      // get the person's name, create a new div at top of page, and insert the things there
+      const content = document.querySelector(".content");
+      const pageWidth = document.createElement("div");
+        pageWidth.classList.add("page-width");
+        pageWidth.setAttribute(
+          "style",
+          "display: flex; max-width: 1200px; padding: 2em; margin: 0 auto; justify-content: space-around;"
+      );
+      const heroEl = document.createElement("section");
+
+      heroEl.classList.add("hero");
+
+      const name = document.querySelector(".step__sections > .section");
+      const messaging = document.createElement("p");
+      var t = document.createTextNode(
+        "You've taken the next step in your health and wellness journey and we’re here to help you reach your goals. Let’s get started and setup your account."
+      );
+
+      messaging.setAttribute("style", "margin: 20px 0;");
+      messaging.appendChild(t);
+
+      // create the button
+      var btn = document.createElement("a");
+      btn.innerHTML = "Setup my account";
+
+      btn.setAttribute(
+        "style",
+        "display: inline-block;vertical-align: middle; width: auto; border: 0; text-align: center; white-space: nowrap; text-decoration: none; user-select: none; appearance: none; padding: 11px 20px 13px; border-radius: 3px; font-weight: 600; background: #00AAFF; color: #ffffff; transition: all 0.2s ease-out; border: 2px solid #00AAFF; margin-bottom: 3em;"
+      );
+
+      btn.setAttribute(
+        "href",
+        `/customer/store/purchased-on-shopify?purchaserId=${Shopify.checkout.customer_id}`
+      );
+
+      heroEl.appendChild(name);
+      heroEl.appendChild(messaging);
+      heroEl.appendChild(btn);
+      pageWidth.appendChild(heroEl);
+
+      // create the image
+      var myImage = new Image();
+      myImage.src =
+        "https://cdn.shopify.com/s/files/1/0529/3185/4511/files/confirmation.svg?v=1630619752";
+      myImage.classList.add("hero-image");
+      pageWidth.appendChild(myImage);
+
+      content.prepend(pageWidth);
+
+      // do some styling things for the bottom of the page
+      document
+        .querySelector(".content .wrap")
+        .setAttribute(
+          "style",
+          "width: 100%; max-width: none; background-color: #f8f8f8; padding: 0 3em; box-sizing: border-box;"
+        );
+      document
+        .querySelector(".content .wrap .main")
+        .setAttribute("style", "outline: 0;");
+
+      // do this in a set timeout so the info has time to load before we hack the styles
+      setTimeout(function() {
+        const contentBoxes = document.querySelectorAll(
+          ".section__content .content-box"
+        );
+        for (var i = 0; i < contentBoxes.length; i++) {
+          contentBoxes[i].setAttribute("style", "border-color: transparent;");
+        }
+
+        const orderSummary = document.querySelector(".order-summary");
+
+        orderSummary.setAttribute(
+          "style",
+          "background: #ffffff; border-radius: 5px; padding: 1.7em;"
+        );
+
+        const name = document.querySelector(".main .step__sections > .section");
+        name.setAttribute("style", "padding-top: 0;");
+
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.setAttribute("style", "padding-top: 4em;");
+      }, 1000);
+
+      // do the styling that is media query dependent
+      var css =
+          ".hero {flex: 0 0 40%;} .hero-image {flex: 0 0 40%} @media only screen and (max-width: 768px) {.page-width {flex-wrap: wrap} .hero {flex: 1 1 100%;} .hero-image {display: none;}}",
+        head = document.head || document.getElementsByTagName("head")[0],
+        style = document.createElement("style");
+
+      head.appendChild(style);
+
+      style.type = "text/css";
+      if (style.styleSheet) {
+        // This is required for IE8 and below.
+        style.styleSheet.cssText = css;
+      } else {
+        style.appendChild(document.createTextNode(css));
+      }
+    }
+
+    return {
+      checkForConsentNeeded: checkForConsentNeeded,
+      onConsentChange: onConsentChange,
+      buildOrderStatusPage: buildOrderStatusPage,
+      createFooterLinks: createFooterLinks
+    };
+  }
+
+  if(!Shopify.Checkout.OrderStatus) {
+    document.addEventListener("DOMContentLoaded", function(event) {
+      Shopify = window.Shopify || {};
+      Shopify.checkoutScripts = CheckoutScripts();
+      let checkout = Shopify.checkoutScripts;
+      let ga = window[window['GoogleAnalyticsObject'] || 'ga'];
+      checkout.checkForConsentNeeded();
+      checkout.onConsentChange();
+      checkout.createFooterLinks();
+      let counter = 0;
+
+      let gaIsLoaded = function () {
+        if (typeof ga == 'function') {
+          ga("send", {
+            hitType: "event",
+            eventCategory: "Checkout",
+            eventAction: "visit",
+            eventLabel: "Reached Checkout",
+          });
+        } else if (counter < 5) {
+          counter+=1;
+          setTimeout(gaIsLoaded, 500);
+        }
+      }
+    });
+  } else if (Shopify.Checkout.OrderStatus) {
+    document.addEventListener("DOMContentLoaded", function(event) {
+      Shopify.checkoutScripts = CheckoutScripts();
+      let checkout = Shopify.checkoutScripts;
+      checkout.buildOrderStatusPage();
+
+      let counter = 0;
+
+      let gaIsLoaded = function () {
+        if (typeof ga == 'function') {
+          ga("send", {
+            hitType: "event",
+            eventCategory: "Checkout",
+            eventAction: "Purchase",
+            eventLabel: "Purchase complete",
+          });
+        } else if (counter < 5) {
+          counter+=1;
+          setTimeout(gaIsLoaded, 500);
+        }
+      }
+    });
+  }
+</script>

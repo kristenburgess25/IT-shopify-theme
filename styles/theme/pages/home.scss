@@ -1,0 +1,326 @@
+.home-shop-all {
+  .hp-cta-left-container {
+    height: 400px;
+    width: 100%;
+  }
+
+  .gift-card-cta {
+    background-color: gray;
+    height: 300px;
+    width: 100px;
+  }
+
+  .compare-cta {
+    background-color: #04a9ff;
+    height: 100px;
+    width: 100px;
+  }
+
+  @media screen and (max-width: 700px) {
+    .filter-mobile > .filter-btn-container {
+      padding-bottom: 30px;
+      margin-right: 10px;
+    }
+    .filter-mobile > #filter-by-goal {
+      margin: 12px;
+      margin: 12px 49px 15px 12px;
+    }
+    .filter-mobile > .list-header {
+      margin-right: 55px;
+      margin-left: 10px;
+    }
+    .overlay-filter {
+      position: absolute;
+      height: 100vh;
+      width: 100vw;
+      top: 0;
+      background: #00000066;
+      z-index: 1;
+    }
+  }
+
+  .filter-btn-container {
+    margin-bottom: 25px;
+    text-align: center;
+    color: #04a9ff;
+
+    button {
+      background: transparent;
+      box-shadow: 0px 0px 0px transparent;
+      border: 0px solid transparent;
+      text-shadow: 0px 0px 0px transparent;
+    }
+
+    button:hover {
+      background: transparent;
+      box-shadow: 0px 0px 0px transparent;
+      border: 0px solid transparent;
+      text-shadow: 0px 0px 0px transparent;
+    }
+
+    button:active {
+      outline: none;
+      border: none;
+    }
+
+    button:focus {
+      outline: 0;
+    }
+
+    @media only screen and (min-width: 700px) {
+      display: none;
+    }
+  }
+
+  .home-page-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  //VUE styling
+  #home-cards-container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  //COMPARE TABLE
+
+  .compare-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-column-gap: 50px;
+    grid-template-columns: auto auto auto auto;
+    background-color: #2196f3;
+    padding: 10px;
+  }
+
+  .grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  // SHOP ALL PRODUCT FILTER
+
+  .subscription {
+    display: flex;
+    flex-direction: row;
+  }
+
+  #shop-all-product-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+    margin: 20px;
+    width: 290px;
+    height: 445px;
+    // box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+
+    .button {
+      margin: auto 20px 0;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .show-most-popular {
+      font-size: 13px;
+      // border-top-left-radius: 14px;
+    }
+  }
+
+  .active {
+    // background-color: gray;
+    color: #04a9ff;
+    background: #d6d6d626;
+    border-radius: 4px;
+  }
+
+  .filters-container {
+    margin: 0px 20px 0px 100px;
+
+    li {
+      font-weight: 600;
+      padding: 9px 13px;
+      cursor: pointer;
+    }
+
+    @media only screen and (max-width: 700px) {
+      display: none;
+    }
+  }
+
+  .filter-mobile {
+    @media only screen and (max-width: 700px) {
+      display: block;
+      z-index: 90;
+      position: absolute;
+      background: #fff;
+      width: 85vw;
+      height: 100%;
+      top: -63px;
+      padding-left: 20px;
+      padding-right: 20px;
+      margin: 0 10px 0 -1px;
+      margin-top: -10px;
+      padding-top: 18px;
+      transform: translateX(-100%);
+      transition: all 0.85s cubic-bezier(0.29, 0.63, 0.44, 1);
+      -webkit-transition: all 0.85s cubic-bezier(0.29, 0.63, 0.44, 1);
+      -moz-transition: all 0.85s cubic-bezier(0.29, 0.63, 0.44, 1);
+      -ms-transition: all 0.85s cubic-bezier(0.29, 0.63, 0.44, 1);
+      -o-transition: all 0.85s cubic-bezier(0.29, 0.63, 0.44, 1);
+    }
+    .cta-filter-mobile {
+      background: var(--brand-color-primary);
+      color: var(--color-button-text);
+      transition: all 0.2s ease-out;
+      border: 2px solid var(--brand-color-primary);
+      padding: 10px 65px;
+      margin: 0 auto;
+      border-radius: 4px;
+      margin-left:11px;
+      font-weight: 600;
+    }
+  }
+
+  .mobile-filter-x {
+    float: right;
+    color: #04a9ff;
+  }
+  .mobile-filter-x > svg {
+    position: relative;
+    left: 18px;
+    height: 15px;
+  }
+
+  .list-header {
+    border-top: 1px solid #e1e4e6;
+    padding-top: 20px;
+    color: #969fa8;
+  }
+
+  #filter-by-goal {
+    border-bottom: 1px solid #e1e4e6;
+    padding-bottom: 20px;
+  }
+
+  .product-image {
+    background-color: gray;
+    height: calc(57% - 71px);
+    width: 100%;
+    margin-bottom: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+  }
+
+  .product-card-cart-btn {
+    height: 50px;
+    background-color: #04a9ff;
+    color: white;
+    border: none;
+    margin: 0 15px;
+    border-radius: 3px;
+  }
+
+  .product-text-content {
+    margin-bottom: 8px;
+    p {
+      font-size: 14px;
+      margin: 6px;
+    }
+  }
+
+  .product-card-details-btn {
+    font-size: 14px;
+    color: #04a9ff;
+    margin: 5px 0;
+    cursor: none;
+    visibility: hidden;
+  }
+
+  .product-card-title {
+    margin-bottom: 3px;
+    font-size: 20px;
+  }
+
+  .product-card-rating {
+    font-size: 10px;
+    margin: 10px;
+  }
+
+  .product-card h4 {
+    font-weight: 600;
+    letter-spacing: 0.2px;
+   
+  }
+  .product-card  h4:nth-of-type(2) {
+    font-size: 24px;
+  }
+
+  // HP CTA's
+
+  .gift-card-cta-container {
+    background-color: gray;
+    border-radius: 15px;
+    text-align: center;
+    margin: auto;
+    height: 300px;
+    padding: 30px;
+    color: white;
+    width: 225px;
+
+    h4 {
+      font-weight: bold;
+    }
+    .btn {
+      background-color: #64c800;
+      border-radius: 3px;
+      text-transform: none;
+    }
+    p {
+      color: white;
+    }
+  }
+
+  .compare-plans-cta-container {
+    background-color: #f8f8f8;
+    border-radius: 15px;
+    margin-top: 30px;
+    text-align: center;
+    padding: 30px;
+    height: 200px;
+    width: 225px;
+
+    h4 {
+      font-weight: bold;
+    }
+
+    .btn {
+      background-color: #f8f8f8;
+      border: 1px solid #04a9ff;
+      color: #04a9ff;
+      border-radius: 3px;
+      text-transform: none;
+    }
+  }
+}

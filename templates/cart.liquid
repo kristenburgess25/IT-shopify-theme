@@ -1,0 +1,38 @@
+{% comment %}
+  The contents of the cart.liquid template can be found in /sections/cart-template.liquid
+{% endcomment %}
+
+{% section 'cart-template' %}
+
+
+{% if shop.metafields.globals.cart_faq_question %}
+<div class="page-width below-cart-content">
+  <div class="cart-bottom">
+    <div class="cart-bottom__inner">
+      {% section 'cart-faq' %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    let ga = window[window['GoogleAnalyticsObject'] || 'ga'];
+    let counter = 0;
+
+    let gaIsLoaded = function () {
+      if (typeof ga == 'function') {
+        ga("send", {
+          hitType: "event",
+          eventCategory: "Cart",
+          eventAction: "visit",
+          eventLabel: "{{ request.path }}",
+        });
+      } else if (counter < 5) {
+        counter+=1;
+        setTimeout(gaIsLoaded, 500);
+      }
+    }
+  });
+</script>
+
